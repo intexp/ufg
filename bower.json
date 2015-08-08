@@ -1,0 +1,24 @@
+{
+  "name": "ufg",
+  "version": "0.0.1",
+  "homepage": "https://github.com/intexp/ufg",
+  "authors": [
+    "Giorgi Bichinashvili <giorgi.bichinashvili@gmail.com>"
+  ],
+  "description": "UFG Website",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ckeditor": "~4.5.2"
+  }
+}
