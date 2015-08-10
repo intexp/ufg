@@ -1,0 +1,18 @@
+# do not change these lines: 'parameters' and 'languages'
+parameters:
+    languages:
+        ge:
+            name: Georgian
+            prefix: ge
+            enabled: 1
+        en:
+            name: English
+            prefix: en
+            enabled: 1
+        ru:
+            name: Russian
+            prefix: ru
+            enabled: 1
+
+    languages.locales: [ge, en, ru]
+    languages.default: [ge]

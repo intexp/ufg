@@ -1,0 +1,95 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block title %}
+    Page: edit | {{ parent() }}
+{% endblock %}
+
+{% block section %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Page: create
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path("admin_dashboard") }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="{{ path('admin_page_index') }}">Pages</a></li>
+            <li class="active">Edit page</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        {% include "admin/flash_message.html.twig" %}
+
+        {{ form_start(form, {"attr": {"novalidate": "novalidate"} }) }}
+
+            <div class="row">
+            <div class="col-lg-8">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title">Translations</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_row(form.translations) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title">Page Settings</h3>
+                    </div>
+                    <div class="box-body">
+                        <label>URL <span style="color: red;">*</span></label>
+                        {{ form_widget(form.slug, { "attr": { "class": "form-control input" } }) }}
+                        {% if form_errors(form.slug) %}
+                            <div style="color: red">{{ form_errors(form.slug) }}</div>
+                        {% endif %}
+
+                        <br>
+                        <div class="checkbox">
+                            <label>
+                                {{ form_widget(form.published, {"attr": { "class": "btn btn-me btn-default" } }) }} Published
+                            </label>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>If not checked, content will be hidden.</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="box">
+            <div class="box-body">
+                {{ form_rest(form) }}
+                <button type="submit" class="btn btn-me btn-flat btn-primary">Save</button>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </section><!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset("assets/vendor/ckeditor/ckeditor.js") }}"></script>
+    <script type="text/javascript">
+        CKEDITOR.config.allowedContent = true;
+        CKEDITOR.config.coreStyles_italic =
+        {
+            element: 'i',
+            overrides: 'i'
+        };
+        config.coreStyles_bold =
+        {
+            element: 'b',
+            overrides: 'b'
+        };
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.extraAllowedContent = '*(*)';        
+    </script>
+{% endblock %}

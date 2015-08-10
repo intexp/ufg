@@ -1,0 +1,115 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block title %}
+    Pages | {{ parent() }}
+{% endblock %}
+
+{% block section %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Pages
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path("admin_dashboard") }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Pages</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        {% include "admin/flash_message.html.twig" %}
+
+        <div class="box">
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Body</th>
+                            <th>URL</th>
+                            <th>Published</th>
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                <th>Meta Information</th>
+                            {% endif %}
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url("admin_page_edit", {'id': entity.id}) }}">
+                                        {{ entity.translate(locale).getTitle() }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ entity.translate(locale).getBody()|striptags|slice(0, 300) }}
+                                </td>
+                                <td>
+                                    {{ entity.slug }}
+                                </td>
+                                <td>
+                                    {% if entity.published %}
+                                        <span style="color: green"><strong>Yes</strong></span>
+                                    {% else %}
+                                        <span>No</span>
+                                    {% endif %}
+                                </td>
+                                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                Created at <span class="label label-info">{{ entity.createdAt | date("d F, Y H:i") }}</span>,
+                                                by
+                                                {% if entity.createdBy %}
+                                                    <span class="label label-info">{{ entity.createdBy.username }}</span>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                Updated at <span class="label label-info">{{ entity.updatedAt | date("d F, Y H:i") }}</span>,
+                                                by
+                                                {% if entity.updatedBy %}
+                                                    <span class="label label-info">{{ entity.updatedBy.username }}</span>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                {% endif %}
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                            Actions
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            {#<li><a href="{{ url("page", {'slug': entity.slug}) }}" target="_blank">View</a></li>#}
+                                            <li><a href="{{ url("admin_page_edit", {'id': entity.id}) }}">Edit</a></li>
+                                            <li><a href="{{ url('admin_page_delete', {'id': entity.id}) }}" class="confirm-delete">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section><!-- /.content -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script src="{{ asset("assets/js/jquery.confirm.min.js") }}"></script>
+    <script type="text/javascript">
+        $("a.confirm-delete").confirm({
+            text: "Are you sure you want to delete that item?"
+        });
+    </script>
+    
+{% endblock %}

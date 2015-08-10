@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Page
@@ -30,6 +31,7 @@ class Page
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=255)
+     * @Assert\NotBlank(message="URL could not be blank")
      */
     private $slug;
 
@@ -40,6 +42,11 @@ class Page
      */
     private $published;
 
+
+    public function __construct()
+    {
+        $this->published = true;
+    }
 
     /**
      * Get id

@@ -2,12 +2,14 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: custom/languages.config.yml }
     - { resource: ../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: ge
+    knp.doctrine_behaviors.blameable_subscriber.user_entity: AdminBundle\Entity\User
 
 framework:
     #esi:             ~
@@ -79,3 +81,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+a2lix_translation_form:
+    locales: %languages.locales%
+    required_locales: %languages.default%
+    manager_registry: doctrine
+    templating: "A2lixTranslationFormBundle::default.html.twig"
