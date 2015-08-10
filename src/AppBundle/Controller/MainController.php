@@ -14,7 +14,11 @@ class MainController extends Controller
      */
     public function homeAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $slides = $em->getRepository("AppBundle:Slide")->findAll();
+
         return $this->render('public/main/home.html.twig', array(
+            "slides" => $slides,
         ));
     }
 

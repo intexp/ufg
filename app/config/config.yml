@@ -108,7 +108,7 @@ liip_imagine:
         company_image_main:
             quality: 100
             filters:
-                thumbnail: { size: [800, 300], mode: outbound }
+                thumbnail: { size: [12, 300], mode: outbound }
         company_image_thumb:
             quality: 100
             filters:

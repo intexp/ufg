@@ -1,19 +1,85 @@
-{% extends 'base.html.twig' %}
+{% set locale = app.request.getLocale() %}
 
-{% block title %}
-    UFG
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% block stylesheets %}
+    <meta name="description" content="United Financial Group is an investment company that makes investments in various sectors. The group was founded in 2004 and nowadays is one of the largest holdings in Georgia.">
+    <meta name="keywords" content="ufg.ge, united financial group">
+    <meta name="author" content="Giorgi Bichinashvili, Levan Soroznishvili">
 
-{% endblock %}
+    <title>{% block title %}United Financial Group{% endblock %}</title>
 
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href="{{ asset("assets/dist/css/bootstrap.css") }}" rel="stylesheet">
+        <link href="{{ asset("assets/dist/css/todc-bootstrap.css") }}" rel="stylesheet">
+        <link href="{{ asset("assets/dist/css/style.css") }}" rel="stylesheet">
+    {% endblock %}
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="icon" href="{{ asset("assets/dist/img/favicon.ico") }}">
+</head>
+
+<body>
 {% block body %}
+    <nav class="navbar navbar-toolbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".bs-example-toolbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{ path("home") }}" class="navbar-brand">UNITED FINANCIAL GROUP</a>
+            </div>
 
-    {% block section %}{% endblock %}
+            <div class="collapse navbar-collapse bs-example-toolbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ path("home") }}">Home</a></li>
+                    <li><a href="about-us.html">About us</a></li>
+                    <li><a href="{{ path("company_index") }}">Business</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Language <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">ქართული</a></li>
+                            <li><a href="#">English</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container">
+        {% block section %}{% endblock %}
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <small>&copy; 2013 - {{ "now"  | date('Y') }}  United Financial Group. <br> All rights reserved.</small>
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="{{ asset("assets/dist/js/bootstrap.min.js") }}"></script>
+    {% endblock %}
 {% endblock %}
-
-{% block javascripts %}
-
-{% endblock %}
+</body>
+</html>

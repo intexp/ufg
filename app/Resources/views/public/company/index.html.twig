@@ -1,0 +1,23 @@
+{% extends 'public/layout.html.twig' %}
+
+{% block title %}
+    Companies | {{ parent() }}
+{% endblock %}
+
+{% block section %}
+    {{ dump(companies) }}
+    {% for rows in companies %}
+        <div class="row">
+        {% for company in rows %}
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="infobox">
+                    {% set imagePath = "files/companies/" ~ company.getImagePath() %}
+                    <img src="{{  asset(imagePath | imagine_filter("company_image_main")) }}" class="img-responsive" alt="{{ company.translate(locale).title | capitalize }}">
+                    <h4><a href="{{ path("company_show", {"slug": company.slug}) }}">{{ company.translate(locale).title }}</a></h4>
+                    <p>Worldwide Money Transfer System</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}
