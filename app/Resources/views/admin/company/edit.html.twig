@@ -1,0 +1,195 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block title %}
+    Company: edit | {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset("assets/vendor/bootstrap-fileinput/css/fileinput.min.css") }}" type="text/css">
+{% endblock %}
+
+{% block section %}
+
+    <!-- Content Header (Company header) -->
+    <section class="content-header">
+        <h1>
+            Company: create
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path("admin_dashboard") }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="{{ path('admin_company_index') }}">Companys</a></li>
+            <li class="active">Edit company</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        {% include "admin/flash_message.html.twig" %}
+
+        {{ form_start(form, {"attr": {"novalidate": "novalidate"} }) }}
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">Translations</h3>
+                        </div>
+                        <div class="box-body">
+                            {{ form_row(form.translations) }}
+                        </div>
+                    </div>
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">Company image</h3>
+                        </div>
+                        <div class="box-body">
+                            {% if entity.getImagePath() %}
+                            <p>Current image:</p>
+                            <div>
+                                {% set imagePath = "files/companies/" ~ entity.getImagePath() %}
+                                <img src="{{  asset(imagePath | imagine_filter("company_image_main")) }}" />
+                            </div>
+                            {% endif %}
+
+                            <label>Image</label>
+                            {{ form_widget(form.image) }}
+                            {% if form_errors(form.image) %}
+                                <div style="color: red">{{ form_errors(form.image) }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">Company Settings</h3>
+                        </div>
+                        <div class="box-body">
+                            <label>URL <span style="color: red;">*</span></label>
+                            {{ form_widget(form.slug, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.slug) %}
+                                <div style="color: red">{{ form_errors(form.slug) }}</div>
+                            {% endif %}
+
+                            <br>
+                            <div class="checkbox">
+                                <label>
+                                    {{ form_widget(form.published, { 'attr': {'checked': 'checked'}}) }} Published
+                                </label>
+                                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>If not checked, content will be hidden.</i></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">Company contact info</h3>
+                        </div>
+                        <div class="box-body">
+                            <label>Website</label>
+                            {{ form_widget(form.website, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.website) %}
+                                <div style="color: red">{{ form_errors(form.website) }}</div>
+                            {% endif %}
+
+                            <br>
+
+                            <label>Phone</label>
+                            {{ form_widget(form.phone, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.phone) %}
+                                <div style="color: red">{{ form_errors(form.phone) }}</div>
+                            {% endif %}
+
+                            <br>
+
+                            <label>Email</label>
+                            {{ form_widget(form.email, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.email) %}
+                                <div style="color: red">{{ form_errors(form.email) }}</div>
+                            {% endif %}
+
+                            <br>
+
+                            <label>Skype</label>
+                            {{ form_widget(form.skype, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.skype) %}
+                                <div style="color: red">{{ form_errors(form.skype) }}</div>
+                            {% endif %}
+
+                            <br>
+
+                            <label>Facebook</label>
+                            {{ form_widget(form.facebook, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.facebook) %}
+                                <div style="color: red">{{ form_errors(form.facebook) }}</div>
+                            {% endif %}
+
+                            <br>
+
+                            <label>Twitter</label>
+                            {{ form_widget(form.twitter, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.twitter) %}
+                                <div style="color: red">{{ form_errors(form.twitter) }}</div>
+                            {% endif %}
+
+                            <br>
+
+                            <label>Linkedin</label>
+                            {{ form_widget(form.linkedin, { "attr": { "class": "form-control input" } }) }}
+                            {% if form_errors(form.linkedin) %}
+                                <div style="color: red">{{ form_errors(form.linkedin) }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-body">
+                    {{ form_rest(form) }}
+                    <button type="submit" class="btn btn-me btn-flat btn-primary">Save</button>
+                </div>
+            </div>
+
+        {{ form_end(form) }}
+    </section><!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset("assets/vendor/bootstrap-fileinput/js/fileinput.min.js") }}" type="application/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $("#company_image").fileinput({
+                showUpload: false,
+                allowedFileTypes: ["image"],
+                allowedFileExtensions: ['jpg', 'gif', 'png'],
+                previewSettings: {
+                    image: {width: "auto", height: "auto"}
+                }
+            });
+        });
+    </script>
+
+    <script src="{{ asset("assets/vendor/ckeditor/ckeditor.js") }}"></script>
+    <script type="text/javascript">
+        CKEDITOR.config.allowedContent = true;
+        CKEDITOR.config.coreStyles_italic =
+        {
+            element: 'i',
+            overrides: 'i'
+        };
+        config.coreStyles_bold =
+        {
+            element: 'b',
+            overrides: 'b'
+        };
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.extraAllowedContent = '*(*)';        
+    </script>
+{% endblock %}

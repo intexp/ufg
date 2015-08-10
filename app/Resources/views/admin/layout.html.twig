@@ -31,7 +31,10 @@
     <div class="wrapper">
 
         <header class="main-header">
-            <a href="{{ path("admin_dashboard") }}" class="logo"><b>UFG Admin</b></a>
+            <a href="{{ path("admin_dashboard") }}" class="logo">
+                <span class="logo-lg">UFG Admin</span>
+                <span class="logo-mini">UFG</span>
+            </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -76,7 +79,12 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li><a href="{{ path("admin_dashboard") }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li>
+                        <a href="{{ path("admin_dashboard") }}">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
                     <li class="treeview{% if "admin_slide_" in app.request.get('_route') %} active{% endif %}">
                         <a href="#">
                             <i class="fa fa-circle-o"></i> <span>Slider</span> <i class="fa fa-angle-left pull-right"></i>
@@ -95,7 +103,21 @@
                             <li><a href="{{ path("admin_page_create") }}"><i class="fa fa-plus"></i> Add new page</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ path("admin_logout") }}"><i class="fa fa-sign-out"></i> Log out</a></li>
+                    <li class="treeview{% if "admin_company_" in app.request.get('_route') %} active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>Companies</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ path("admin_company_index") }}"><i class="fa fa-bars"></i> Company list</a></li>
+                            <li><a href="{{ path("admin_company_create") }}"><i class="fa fa-plus"></i> Add new company</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ path("admin_logout") }}">
+                            <i class="fa fa-sign-out"></i>
+                            <span>Log out</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->

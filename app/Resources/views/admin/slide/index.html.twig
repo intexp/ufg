@@ -22,14 +22,15 @@
     <section class="content">
         {% include "admin/flash_message.html.twig" %}
 
-        <div class="box">
+        <div class="box box-info">
             <div class="box-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
+                            <th>Image</th>
                             <th>Title</th>
-                            <th>Body</th>
+                            <th>Description</th>
                             <th>URL</th>
                             <th>Published</th>
                             {% if is_granted("ROLE_SUPER_ADMIN") %}
@@ -43,11 +44,17 @@
                             <tr>
                                 <td>
                                     <a href="{{ url("admin_slide_edit", {'id': entity.id}) }}">
+                                        {% set imagePath = "files/slides/" ~ entity.getImagePath() %}
+                                        <img src="{{  asset(imagePath | imagine_filter("slide_image_thumb")) }}" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ url("admin_slide_edit", {'id': entity.id}) }}">
                                         {{ entity.translate(locale).getTitle() }}
                                     </a>
                                 </td>
                                 <td>
-                                    {{ entity.translate(locale).getBody()|striptags|slice(0, 300) }}
+                                    {{ entity.translate(locale).getDescription()|striptags|slice(0, 300) }}
                                 </td>
                                 <td>
                                     {{ entity.slug }}

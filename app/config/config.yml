@@ -88,3 +88,28 @@ a2lix_translation_form:
     required_locales: %languages.default%
     manager_registry: doctrine
     templating: "A2lixTranslationFormBundle::default.html.twig"
+
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        slide_image_main:
+            quality: 100
+            filters:
+                thumbnail: { size: [800, 300], mode: outbound }
+        slide_image_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [250, 250], mode: inset }
+        company_image_main:
+            quality: 100
+            filters:
+                thumbnail: { size: [800, 300], mode: outbound }
+        company_image_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [250, 250], mode: inset }
