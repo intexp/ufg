@@ -11,8 +11,6 @@ class Builder extends ContainerAware
     {
         $locale = $this->container->get('request_stack')->getCurrentRequest()->getLocale();
 
-        dump($locale);
-
         $menu = $factory->createItem('root');
 
         $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));

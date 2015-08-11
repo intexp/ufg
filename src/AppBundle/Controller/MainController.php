@@ -47,7 +47,8 @@ class MainController extends Controller
                         array(
                             'data' => $data,
                         )
-                    )
+                    ),
+                    'text/html'
                 )
             ;
 
