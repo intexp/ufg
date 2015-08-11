@@ -33,10 +33,23 @@ class MainController extends Controller
 
     /**
      * @Route("/{slug}", name="page")
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function pageAction($slug)
     {
+        $entity = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Page')
+            ->findOneBy(array('slug' => $slug))
+        ;
+
+        if (!$entity) {
+            throw $this->createNotFoundException();
+        }
+
         return $this->render('public/main/page.html.twig', array(
+            'entity' => $entity,
         ));
     }
 }

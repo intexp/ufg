@@ -15,4 +15,4 @@ parameters:
             enabled: 1
 
     languages.locales: [ge, en, ru]
-    languages.default: [ge]
+    languages.default: ge

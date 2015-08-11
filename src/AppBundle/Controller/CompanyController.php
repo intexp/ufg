@@ -12,6 +12,7 @@ class CompanyController extends Controller
 {
     /**
      * @Route("/{slug}", name="company_show")
+     * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction($slug)
@@ -25,6 +26,7 @@ class CompanyController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException();
         }
+
         return $this->render('public/company/show.html.twig', array(
             'entity' => $entity,
         ));

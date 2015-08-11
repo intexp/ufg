@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new AppBundle\AppBundle(),
             new AdminBundle\AdminBundle(),
         );
