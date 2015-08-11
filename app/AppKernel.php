@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new AppBundle\AppBundle(),
             new AdminBundle\AdminBundle(),
         );

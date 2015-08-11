@@ -21,7 +21,14 @@ class ContactType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('message', 'textarea');
+            ->add('message', 'textarea')
+            ->add('captcha', 'captcha', array(
+                'width' => '100',
+                'height' => '30',
+                'length' => 4,
+                'background_color' => array(229,229,229),
+            ))
+        ;
     }
 
     /**

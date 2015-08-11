@@ -54,7 +54,7 @@ class MainController extends Controller
 
             $result = $this->get('mailer')->send($message);
 
-            $this->addFlash('contact', 'Your email has been sent! Thanks!');
+            $this->addFlash('mail_sent_successfully', 'Your email has been sent! Thanks!');
 
             return $this->redirectToRoute("contact");
         }
