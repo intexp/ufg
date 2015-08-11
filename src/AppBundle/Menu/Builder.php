@@ -15,16 +15,16 @@ class Builder extends ContainerAware
 
         $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));
 
-        $menu->addChild('Home', array('route' => 'home'));
+        $menu->addChild('home', array('route' => 'home'));
 
-        $menu->addChild('About us', array(
+        $menu->addChild('about', array(
             'route' => 'page',
             'routeParameters' => array('slug' => 'about')
         ));
 
-        $menu->addChild('Business', array('route' => 'company_index'));
+        $menu->addChild('business', array('route' => 'company_index'));
 
-        $menu->addChild('Contact', array('route' => 'contact'));
+        $menu->addChild('contact', array('route' => 'contact'));
 
         return $menu;
     }

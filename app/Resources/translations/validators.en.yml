@@ -1,0 +1,8 @@
+name:
+    not_blank: Name should not be blank
+email:
+    not_blank: Email should not be blank
+    valid: Invalid email address
+message:
+    not_blank: Message should not be blank
+Bad code value: Code does not match

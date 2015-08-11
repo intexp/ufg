@@ -39,6 +39,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        languages: "%languages%"
 
 # Assetic Configuration
 assetic:
@@ -97,6 +99,10 @@ jms_i18n_routing:
     strategy: prefix_except_default
 
 gregwar_captcha: ~
+
+knp_menu:
+    twig:
+        template: ::public/knp_menu.html.twig
 
 liip_imagine:
     resolvers:

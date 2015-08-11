@@ -3,14 +3,17 @@ parameters:
     languages:
         ge:
             name: Georgian
+            title: ქართული
             prefix: ge
             enabled: 1
         en:
             name: English
+            title: English
             prefix: en
             enabled: 1
         ru:
             name: Russian
+            title: Русский
             prefix: ru
             enabled: 1
 

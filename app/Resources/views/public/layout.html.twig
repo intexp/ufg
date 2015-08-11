@@ -25,7 +25,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link rel="icon" href="{{ asset("assets/dist/img/favicon.ico") }}">
+    <link rel="icon" href="{{ asset("assets/dist/ico/favicon.ico") }}">
 </head>
 
 <body>
@@ -47,10 +47,21 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Language <span class="caret"></span></a>
+                        <a title="Select language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ locale | localeToLanguageName }} <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">ქართული</a></li>
-                            <li><a href="#">English</a></li>
+                            {% for prefix, language in languages %}
+                                <li>
+                                    <a href="{{ path(app.request.attributes.get("_route"), { "_locale": prefix, "slug": app.request.attributes.get("slug") }) }}">
+                                        {% if prefix == locale %}
+                                            <span style="color: #ff5312;"><strong>{{ language.title }}</strong></span>
+                                        {% else %}
+                                            {{ language.title }}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </li>
                 </ul>
@@ -67,7 +78,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <small>&copy; 2013 - {{ "now"  | date('Y') }}  United Financial Group. <br> All rights reserved.</small>
+                <small>
+                    &copy; 2013 - {{ "now"  | date('Y') }} {{ "ufg.fully" | trans }}.
+                    <br>
+                    {{ "rights_reserved" | trans }}.
+                </small>
             </div>
         </div>
     </div>
