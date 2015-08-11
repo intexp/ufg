@@ -31,6 +31,7 @@ framework:
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
+        gc_probability: 0
     fragments:       ~
     http_method_override: true
 
@@ -100,7 +101,7 @@ liip_imagine:
         slide_image_main:
             quality: 100
             filters:
-                thumbnail: { size: [800, 300], mode: outbound }
+                thumbnail: { size: [1200, 300], mode: outbound }
         slide_image_thumb:
             quality: 100
             filters:
@@ -108,8 +109,8 @@ liip_imagine:
         company_image_main:
             quality: 100
             filters:
-                thumbnail: { size: [12, 300], mode: outbound }
+                thumbnail: { size: [750, 250], mode: outbound }
         company_image_thumb:
             quality: 100
             filters:
-                thumbnail: { size: [250, 250], mode: inset }
+                thumbnail: { size: [240, 145], mode: inset }

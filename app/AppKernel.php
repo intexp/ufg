@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
