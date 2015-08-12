@@ -6,6 +6,193 @@
 
 {% block section %}
 
+    <section class="content-header">
+        <h1>
+            Dashboard
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path("admin_dashboard") }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        </ol>
+    </section>
 
+    <!-- Main content -->
+    <section class="content">
+        {% include "admin/flash_message.html.twig" %}
 
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Slides</h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-info">{{ slidesCount }} slides</span>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <ul class="list-unstyled">
+                            {% for slide in slides %}
+                                <li>
+                                    {% if slide.imagePath %}
+                                        <a href="{{ path("admin_slide_edit", {"id": slide.id}) }}">
+                                            {% set imagePath = "files/slides/" ~ slide.getImagePath() %}
+                                            <img width="100px" src="{{  asset(imagePath | imagine_filter("slide_image_thumb")) }}" />
+                                        </a>
+                                    {% endif %}
+
+                                    {% if slide.translate(locale).title %}
+                                        <a href="{{ path("admin_slide_edit", {"id": slide.id}) }}">
+                                            {{ slide.translate(locale).title }}
+                                        </a>
+                                    {% endif %}
+
+                                    {% if not loop.last %}
+                                        <hr>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="{{ path("admin_slide_index") }}" class="btn btn-sm btn-default">
+                                <i class="fa fa-bars"> View all</i>
+                            </a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="{{ path("admin_slide_create") }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"> Add new</i>
+                            </a>
+                        </div>
+                        <div class="clear-fix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Pages</h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-info">{{ pagesCount }} pages</span>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <ul class="list-unstyled">
+                            {% for page in pages %}
+                                <li>
+                                    <a href="{{ path("admin_page_edit", {"id": page.id}) }}">
+                                        {{ page.translate(locale).title }}
+                                    </a>
+
+                                    {% if page.translate(locale).shortDescription %}
+                                        <div>{{ page.translate(locale).shortDescription | raw }}</div>
+                                    {% endif %}
+
+                                    {% if not loop.last %}
+                                        <hr>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="{{ path("admin_page_index") }}" class="btn btn-sm btn-default">
+                                <i class="fa fa-bars"> View all</i>
+                            </a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="{{ path("admin_page_create") }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"> Add new</i>
+                            </a>
+                        </div>
+                        <div class="clear-fix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Companies</h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-info">{{ companiesCount }} companies</span>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <ul class="list-unstyled">
+                            {% for company in companies %}
+                                <li>
+                                    <a href="{{ path("admin_company_edit", {"id": company.id}) }}">
+                                        {{ company.translate(locale).title }}
+                                    </a>
+                                    {% if company.translate(locale).shortDescription %}
+                                        <div>{{ company.translate(locale).shortDescription | raw }}</div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="{{ path("admin_company_index") }}" class="btn btn-sm btn-default">
+                                <i class="fa fa-bars"> View all</i>
+                            </a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="{{ path("admin_company_create") }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"> Add new</i>
+                            </a>
+                        </div>
+                        <div class="clear-fix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Logged in as
+                            <span class="label label-primary">{{ app.user.username }}</span>
+                        </h3>
+                        <div class="box-tools pull-right">
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="{{ path("home") }}" target="_blank">
+                                    <i class="fa fa-home"></i>
+                                    Visit public website
+                                </a>
+                                <hr>
+                            </li>
+                            <li>
+                                <a href="{{ path("admin_account_edit") }}">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    Change account settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path("admin_change_password") }}">
+                                    <i class="fa fa-key"></i>
+                                    Change password
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path("admin_logout") }}">
+                                    <i class="fa fa-sign-out"></i>
+                                    Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
