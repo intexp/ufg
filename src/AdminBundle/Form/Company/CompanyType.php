@@ -50,6 +50,13 @@ class CompanyType extends AbstractType
                             'class' => 'form-control',
                         ),
                     ),
+                    'shortDescription' => array(
+                        'required' => false,
+                        'attr' => array(
+                            'class' => 'form-control ckeditor',
+                            'rows' => 3,
+                        )
+                    ),
                     'description' => array(
                         'attr' => array(
                             'class' => 'form-control ckeditor',

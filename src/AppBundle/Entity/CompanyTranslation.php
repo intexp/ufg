@@ -25,6 +25,13 @@ class CompanyTranslation
     /**
      * @var string
      *
+     * @ORM\Column(name="short_description", type="text", nullable=true)
+     */
+    private $shortDescription;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
@@ -134,5 +141,28 @@ class CompanyTranslation
     public function getStreet()
     {
         return $this->street;
+    }
+
+    /**
+     * Set shortDescription
+     *
+     * @param string $shortDescription
+     * @return CompanyTranslation
+     */
+    public function setShortDescription($shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get shortDescription
+     *
+     * @return string 
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
     }
 }
