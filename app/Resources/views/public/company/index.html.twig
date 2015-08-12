@@ -19,7 +19,9 @@
                             {{ company.translate(locale).title }}
                         </a>
                     </h4>
-                    <p>short desc...</p>
+                    {% if company.translate(locale).shortDescription %}
+                        <p>{{ company.translate(locale).shortDescription | raw }}</p>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
