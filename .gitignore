@@ -10,5 +10,5 @@
 /vendor/
 /web/bundles/
 /web/files/
-/web/media/
+/web/media/*
 /.idea

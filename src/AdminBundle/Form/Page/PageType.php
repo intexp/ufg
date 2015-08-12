@@ -35,6 +35,13 @@ class PageType extends AbstractType
                             'class' => 'form-control',
                         )
                     ),
+                    'shortDescription' => array(
+                        'required' => false,
+                        'attr' => array(
+                            'class' => 'form-control ckeditor',
+                            'rows' => 3,
+                        )
+                    ),
                     'body' => array(
                         'required' => false,
                         'attr' => array(

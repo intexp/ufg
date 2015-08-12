@@ -25,6 +25,13 @@ class PageTranslation
     /**
      * @var string
      *
+     * @ORM\Column(name="short_description", type="text", nullable=true)
+     */
+    private $shortDescription;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="body", type="text", nullable=true)
      */
     private $body;
@@ -74,5 +81,28 @@ class PageTranslation
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Set shortDescription
+     *
+     * @param string $shortDescription
+     * @return PageTranslation
+     */
+    public function setShortDescription($shortDescription)
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get shortDescription
+     *
+     * @return string 
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
     }
 }
