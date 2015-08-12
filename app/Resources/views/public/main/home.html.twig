@@ -1,7 +1,7 @@
 {% extends 'public/layout.html.twig' %}
 
 {% block title %}
-    Home | {{ parent() }}
+    {{ "home" | trans }} | {{ parent() }}
 {% endblock %}
 
 {% block section %}
@@ -37,16 +37,14 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h3>United Financial Group</h3>
-            <p>
-                United Financial Group is an investment company that makes investments in various sectors. The group was founded in 2004 and nowadays is one of the largest holdings in Georgia.
-            </p>
-            <p>
-                United Financial Group has been developed in the following areas: International Money Transfers, Global Parcels, Tourism, International Phone Service, Media, Wine, Pharmacy, Real Estate Management, Poultry and Jewelry.
-            </p>
-            <p>
-                During its 11 years of activity, the company has been playing a big role in the development and growth of the sectors mentioned above. UFG aims to keep and progress its effort on introducing international high standards in Georgia.
-            </p>
+            <h3>{{ "ufg.fully" | trans }}</h3>
+
+            {% if (about.translate(locale).shortDescription) %}
+                <br>
+                {{ about.translate(locale).shortDescription | raw }}
+                <br>
+            {% endif %}
+
             <a href="{{ path("page", {"slug": "about"}) }}" class="btn btn-default">{{ "read_more" | trans }}...</a>
         </div>
     </div>
