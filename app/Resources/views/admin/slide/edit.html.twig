@@ -42,7 +42,7 @@
                         <p>Current image:</p>
                         <div>
                             {% set imagePath = "files/slides/" ~ slide.getImagePath() %}
-                            <img src="{{  asset(imagePath | imagine_filter("slide_image_main")) }}" />
+                            <img class="img-responsive" src="{{  asset(imagePath | imagine_filter("slide_image_main")) }}" />
                         </div>
                         {% endif %}
 

@@ -45,7 +45,7 @@
                                 <td>
                                     <a href="{{ url("admin_slide_edit", {'id': entity.id}) }}">
                                         {% set imagePath = "files/slides/" ~ entity.getImagePath() %}
-                                        <img src="{{  asset(imagePath | imagine_filter("slide_image_thumb")) }}" />
+                                        <img class="img-responsive" src="{{  asset(imagePath | imagine_filter("slide_image_thumb")) }}" />
                                     </a>
                                 </td>
                                 <td>

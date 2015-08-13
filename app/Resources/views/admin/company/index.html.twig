@@ -47,7 +47,7 @@
                                     {% if entity.getImagePath() %}
                                     <a href="{{ url("admin_company_edit", {'id': entity.id}) }}">
                                         {% set imagePath = "files/companies/" ~ entity.getImagePath() %}
-                                        <img src="{{  asset(imagePath | imagine_filter("company_image_thumb")) }}" />
+                                        <img class="img-responsive" src="{{  asset(imagePath | imagine_filter("company_image_thumb")) }}" />
                                     </a>
                                     {% endif %}
                                 </td>
