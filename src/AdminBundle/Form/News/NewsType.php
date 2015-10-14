@@ -1,14 +1,15 @@
 <?php
 
-namespace AdminBundle\Form\Slide;
+namespace AdminBundle\Form\News;
 
+use AdminBundle\Form\DataTransformer\SlugTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\NotNull;
 
-class SlideType extends AbstractType
+class NewsType extends AbstractType
 {
     private $languages;
     private $mode;
@@ -18,11 +19,7 @@ class SlideType extends AbstractType
         $this->languages = $languages;
         $this->mode = $mode;
     }
-    
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $imageConstraints = array();
@@ -37,56 +34,67 @@ class SlideType extends AbstractType
                 'mimeTypesMessage' => 'The file type is invalid. Allowed file types are: gif, jpeg, png.',
             )
         );
-        if ($options['mode'] == 'create') {
-            $imageConstraints[] = new NotNull();
-        }
 
         $builder
-            ->add('published')
             ->add('slug')
+            ->add('date', 'collot_datetime', array(
+                    'pickerOptions' => array(
+                        'format' => 'dd/mm/yyyy',
+                        'autoclose' => true,
+                        'minView' => 'month',
+                    ),
+                    'data' => new \DateTime(),
+                )
+            )
+            ->add('published')
             ->add('image', 'file', array(
                 'mapped' => false,
                 'constraints' => $imageConstraints,
             ))
             ->add('translations', 'a2lix_translations', array(
-                'label' => false,
-                'locales' => $options['languages'],
                 'required' => false,
+                'locales' => $options['languages'],
+                'label' => false,
                 'fields' => array(
                     'title' => array(
                         'required' => false,
                         'attr' => array(
                             'class' => 'form-control',
-                        )
+                        ),
                     ),
-                    'description' => array(
+                    'shortDescription' => array(
                         'required' => false,
                         'attr' => array(
                             'class' => 'form-control ckeditor',
+                            'rows' => 3,
                         )
                     ),
-                )
+                    'body' => array(
+                        'required' => false,
+                        'attr' => array(
+                            'class' => 'form-control ckeditor',
+                        ),
+                    ),
+                ),
             ))
+        ;
+
+        $builder->get('slug')
+            ->addModelTransformer(new SlugTransformer())
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Slide',
+            'data_class' => 'AppBundle\Entity\News',
             'languages' => $this->languages,
             'mode' => $this->mode,
         ));
     }
 
-    /**
-     * @return string
-     */
     public function getName()
     {
-        return 'slide';
+        return 'admin_news';
     }
 }

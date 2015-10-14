@@ -120,6 +120,9 @@ class SlideController extends Controller
                     $fs = new Filesystem();
                     if ($fs->exists($oldFile)) {
                         $fs->remove($oldFile);
+
+                        $cacheManager = $this->get('liip_imagine.cache.manager');
+                        $cacheManager->remove("files/slides/" . $entity->getImagePath());
                     }
 
                     $entity->setImagePath($fileName);

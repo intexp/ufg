@@ -99,9 +99,18 @@
                             <li><a href="{{ path("admin_slide_create") }}"><i class="fa fa-plus"></i> Add new slide</a></li>
                         </ul>
                     </li>
+                    <li class="treeview{% if "admin_news_" in app.request.get('_route') %} active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-files-o"></i> <span>News</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ path("admin_news_index") }}"><i class="fa fa-bars"></i> News list</a></li>
+                            <li><a href="{{ path("admin_news_create") }}"><i class="fa fa-plus"></i> Add news</a></li>
+                        </ul>
+                    </li>
                     <li class="treeview{% if "admin_page_" in app.request.get('_route') %} active{% endif %}">
                         <a href="#">
-                            <i class="fa fa-files-o"></i> <span>Pages</span> <i class="fa fa-angle-left pull-right"></i>
+                            <i class="fa fa-file-o"></i> <span>Pages</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{ path("admin_page_index") }}"><i class="fa fa-bars"></i> Page list</a></li>

@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new AppBundle\AppBundle(),
             new AdminBundle\AdminBundle(),
         );

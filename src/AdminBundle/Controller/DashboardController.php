@@ -38,6 +38,13 @@ class DashboardController extends Controller
             ->getQuery()
             ->getSingleScalarResult();
 
+        $repository = $em->getRepository('AppBundle:News');
+        $newss = $repository->findBy(array(), array(), 3, 0);
+        $newsCount = $repository->createQueryBuilder('x')
+            ->select('count(x.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
         return $this->render('admin/dashboard.html.twig', array(
             'slides' => $slides,
             'slidesCount' => $slidesCount,
@@ -45,6 +52,8 @@ class DashboardController extends Controller
             'pagesCount' => $pagesCount,
             'companies' => $companies,
             'companiesCount' => $companiesCount,
+            'newss' => $newss,
+            'newsCount' => $newsCount,
         ));
     }
 }

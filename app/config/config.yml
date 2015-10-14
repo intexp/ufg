@@ -127,3 +127,11 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [240, 145], mode: inset }
+        news_image_main:
+            quality: 100
+            filters:
+                thumbnail: { size: [800, 400], mode: outbound }
+        news_image_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [250, 250], mode: inset }

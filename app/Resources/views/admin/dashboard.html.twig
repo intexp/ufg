@@ -152,6 +152,53 @@
         </div>
 
         <div class="row">
+            <div class="col-lg-4">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">News</h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-info">{{ newsCount }} news</span>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <ul class="list-unstyled">
+                            {% for news in newss %}
+                                <li>
+                                    {% if news.imagePath %}
+                                        <a href="{{ path("admin_news_edit", {"id": news.id}) }}">
+                                            {% set imagePath = "files/news/" ~ news.getImagePath() %}
+                                            <img width="100px" src="{{  asset(imagePath | imagine_filter("news_image_thumb")) }}" />
+                                        </a>
+                                    {% endif %}
+
+                                    {% if news.translate(locale).title %}
+                                        <a href="{{ path("admin_news_edit", {"id": news.id}) }}">
+                                            {{ news.translate(locale).title }}
+                                        </a>
+                                    {% endif %}
+
+                                    {% if not loop.last %}
+                                        <hr>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="{{ path("admin_news_index") }}" class="btn btn-sm btn-default">
+                                <i class="fa fa-bars"> View all</i>
+                            </a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="{{ path("admin_news_create") }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"> Add new</i>
+                            </a>
+                        </div>
+                        <div class="clear-fix"></div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-lg-4">
                 <div class="box box-info">
