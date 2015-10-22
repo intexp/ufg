@@ -47,9 +47,13 @@ class NewsType extends AbstractType
                 )
             )
             ->add('published')
-            ->add('image', 'file', array(
+            ->add('images', 'file', array(
+                'multiple' => true,
                 'mapped' => false,
-                'constraints' => $imageConstraints,
+//                'constraints' => $imageConstraints,
+                'attr' => array(
+                    'multiple' => true,
+                ),
             ))
             ->add('translations', 'a2lix_translations', array(
                 'required' => false,

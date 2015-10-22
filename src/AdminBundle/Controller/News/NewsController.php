@@ -3,10 +3,12 @@
 namespace AdminBundle\Controller\News;
 
 use AppBundle\Entity\News;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use AdminBundle\Form\News\NewsType;
@@ -52,21 +54,31 @@ class NewsController extends Controller
 
             if ($form->isValid()) {
                 /** @var UploadedFile $uploadedFile */
-                $uploadedFile = $form->get('image')->getData();
-
-                if (!is_null($uploadedFile)) {
-                    $dir = $this->get('kernel')->getRootDir() . "/../web/files/news";
-
-                    $fileName = (string)strtotime('now') . "_" . strtolower(str_replace(" ", "_", $uploadedFile->getClientOriginalName()));
-
-                    $uploadedFile->move($dir, $fileName);
-
-                    $entity->setImagePath($fileName);
-                }
+                $uploadedFiles = $form->get('images')->getData();
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
+
+                foreach ($uploadedFiles as $uploadedFile) {
+                    if (!is_null($uploadedFile)) {
+                        $rootDir = $this->get('kernel')->getRootDir() . "/../web/files/news";
+
+                        $dir = $rootDir . '/' . $entity->getId();
+
+                        /** @var Filesystem $fs */
+                        $fs = new Filesystem();
+
+                        if (!$fs->exists($dir)) {
+                            $fs->mkdir($dir);
+                        }
+
+                        $fileName = (string)strtotime('now') . "_" . strtolower(str_replace(" ", "_", $uploadedFile->getClientOriginalName()));
+
+                        $uploadedFile->move($dir, $fileName);
+                    }
+                }
+
 
                 $this->addFlash("success", "News was successfully created.");
 
@@ -88,12 +100,25 @@ class NewsController extends Controller
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        /** @var News $entity */
         $entity = $em->getRepository("AppBundle:News")->find($id);
         
         if (!$entity) {
             throw $this->createNotFoundException("Unable to find news.");
         }
-        
+
+        $rootDir = $this->get('kernel')->getRootDir() . "/../web/files/news";
+        $dir = $rootDir . '/' . $entity->getId();
+
+        $finder = new Finder();
+        $finder->files()->in($dir);
+
+        $newsImages = array();
+        foreach ($finder as $f) {
+            $newsImages[$f->getRelativePathname()] = $f->getRelativePathname();
+        }
+
         $languages = $this->container->getParameter("languages");
         
         $form = $this->createForm(new NewsType(array_keys($languages), 'edit'), $entity);
@@ -127,7 +152,7 @@ class NewsController extends Controller
                         $cacheManager->remove("files/news/" . $entity->getImagePath());
                     }
 
-                    $entity->setImagePath($fileName);
+                    $entity->addImagePath($fileName);
                 }
 
                 $em = $this->getDoctrine()->getManager();
@@ -142,8 +167,35 @@ class NewsController extends Controller
         
         return $this->render("admin/news/edit.html.twig", array(
             "form" => $form->createView(),
-            "news" => $entity,
+            "entity" => $entity,
+            "newsImages" => $newsImages,
         ));
+    }
+
+    /**
+     * @Route("/remove-image/{id}/{imagePath}/{imageKey}", name="admin_news_remove_image")
+     * @param $id
+     * @param $imagePath
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeImageAction($id, $imagePath, $imageKey)
+    {
+        $rootDir = $this->get('kernel')->getRootDir() . "/../web/files/news";
+        $dir = $rootDir . '/' . $id;
+
+        $image = $dir . "/" . $imagePath;
+
+        $fs = new Filesystem();
+        if ($fs->exists($image)) {
+            $fs->remove($image);
+
+            $cacheManager = $this->get('liip_imagine.cache.manager');
+            $cacheManager->remove("files/news/" . $id . "/" . $imagePath);
+        }
+
+        $this->addFlash("success", "Image was successfully removed.");
+
+        return $this->redirectToRoute("admin_news_edit", array('id' => $id));
     }
 
     /**
@@ -161,16 +213,27 @@ class NewsController extends Controller
             throw $this->createNotFoundException("Unable to find news.");
         }
 
-        $dir = $this->get('kernel')->getRootDir() . "/../web/files/news";
-
-        $image = $dir . "/" . $entity->getImagePath();
+        $rootDir = $this->get('kernel')->getRootDir() . "/../web/files/news";
+        $dir = $rootDir . '/' . $id;
 
         $fs = new Filesystem();
-        if ($fs->exists($image)) {
-            $fs->remove($image);
 
-            $cacheManager = $this->get('liip_imagine.cache.manager');
-            $cacheManager->remove("files/news/" . $entity->getImagePath());
+        $finder = new Finder();
+        $finder->files()->in($dir);
+
+        foreach ($finder as $f) {
+            $image = $dir . "/" . $f->getRelativePathname();
+
+            if ($fs->exists($image)) {
+                $fs->remove($image);
+
+                $cacheManager = $this->get('liip_imagine.cache.manager');
+                $cacheManager->remove("files/news/" . $id . "/" . $image);
+            }
+        }
+
+        if ($fs->exists($dir)) {
+            $fs->remove($dir);
         }
 
         $em = $this->getDoctrine()->getManager();

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,13 +45,6 @@ class News
     private $date;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="image_path", type="string", length=255, nullable=true)
-     */
-    private $imagePath;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="published", type="boolean")
@@ -66,7 +60,7 @@ class News
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,7 +83,7 @@ class News
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -112,7 +106,7 @@ class News
     /**
      * Get published
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublished()
     {
@@ -135,33 +129,10 @@ class News
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Set imagePath
-     *
-     * @param string $imagePath
-     * @return News
-     */
-    public function setImagePath($imagePath)
-    {
-        $this->imagePath = $imagePath;
-
-        return $this;
-    }
-
-    /**
-     * Get imagePath
-     *
-     * @return string 
-     */
-    public function getImagePath()
-    {
-        return $this->imagePath;
     }
 }

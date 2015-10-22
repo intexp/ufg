@@ -164,11 +164,12 @@
                         <ul class="list-unstyled">
                             {% for news in newss %}
                                 <li>
-                                    {% if news.imagePath %}
-                                        <a href="{{ path("admin_news_edit", {"id": news.id}) }}">
-                                            {% set imagePath = "files/news/" ~ news.getImagePath() %}
-                                            <img width="100px" src="{{  asset(imagePath | imagine_filter("news_image_thumb")) }}" />
-                                        </a>
+                                    {% if news.imagePaths %}
+                                        {{ dump(news.imagePaths) }}
+                                        {#<a href="{{ path("admin_news_edit", {"id": news.id}) }}">#}
+                                            {#{% set imagePath = "files/news/" ~ news.imagePaths %}#}
+                                            {#<img width="100px" src="{{  asset(imagePath | imagine_filter("news_image_thumb")) }}" />#}
+                                        {#</a>#}
                                     {% endif %}
 
                                     {% if news.translate(locale).title %}
