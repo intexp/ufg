@@ -6,8 +6,10 @@ use AdminBundle\Form\DataTransformer\SlugTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 class NewsType extends AbstractType
 {
@@ -23,7 +25,7 @@ class NewsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $imageConstraints = array();
-        $imageConstraints[] = new File(
+        $imageConstraints[] = new Image(
             array(
                 'maxSize' => '8M',
                 'mimeTypes' => array(
@@ -50,7 +52,11 @@ class NewsType extends AbstractType
             ->add('images', 'file', array(
                 'multiple' => true,
                 'mapped' => false,
-//                'constraints' => $imageConstraints,
+                'constraints' => array(
+                    new All(array(
+                        'constraints' => $imageConstraints,
+                    ))
+                ),
                 'attr' => array(
                     'multiple' => true,
                 ),

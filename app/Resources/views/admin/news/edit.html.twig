@@ -44,7 +44,6 @@
                             {% if newsImages|length > 0  %}
                                 <div class="row">
                                 {% for key, image in newsImages %}
-                                    {{ dump(key) }}
                                     <div class="col-lg-3">
                                         {% set imagePath = "files/news/" ~ entity.id ~ "/" ~ image %}
                                         <p><img class="img-responsive" src="{{  asset(imagePath | imagine_filter("news_image_thumb")) }}" /></p>
