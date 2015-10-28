@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="United Financial Group">
+    <meta name="keywords" content="Finance, Financial, Service, Services">
 
-    <meta name="description" content="United Financial Group is an investment company that makes investments in various sectors. The group was founded in 2004 and nowadays is one of the largest holdings in Georgia.">
-    <meta name="keywords" content="ufg.ge, united financial group">
     <meta name="author" content="Giorgi Bichinashvili, Levan Soroznishvili">
 
     <title>{% block title %}{{ "ufg.fully" | trans }}{% endblock %}</title>
@@ -16,7 +16,6 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link href="{{ asset("assets/dist/css/bootstrap.css") }}" rel="stylesheet">
-        <link href="{{ asset("assets/dist/css/todc-bootstrap.css") }}" rel="stylesheet">
         <link href="{{ asset("assets/dist/css/style.css") }}" rel="stylesheet">
     {% endblock %}
 
@@ -25,71 +24,102 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link rel="icon" href="{{ asset("assets/dist/ico/favicon.ico") }}">
+    <link rel="shortcut icon" href="{{ asset("assets/dist/img/log/favicon.ico") }}">
 </head>
 
 <body>
 {% block body %}
-    <nav class="navbar navbar-toolbar navbar-inverse navbar-fixed-top">
+    <div class="header">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".bs-example-toolbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="{{ path("home") }}" class="navbar-brand">UNITED FINANCIAL GROUP</a>
+            <div class="row">
+                <div class="col-xs-12">
+          <span class="subscribe pull-left">
+              <span><a href="#"><i class="fa fa-envelope"></i>გამოწერა</a></span>
+          </span>
+          <span class="lang pull-right">
+              {% for prefix, language in languages %}
+                  <a href="{{ path(app.request.attributes.get("_route"), { "_locale": prefix, "slug": app.request.attributes.get("slug") }) }}">
+                      <img src="{{ asset("assets/dist/img/ico/flg/" ~ prefix ~ ".png") }}" alt="{{ language.title }}">
+                  </a>
+              {% endfor %}
+          </span>
+                </div>
             </div>
-
-            <div class="collapse navbar-collapse bs-example-toolbar-collapse-1">
-                {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active'}) }}
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a title="Select language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            {{ locale | localeToLanguageName }} <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            {% for prefix, language in languages %}
-                                <li>
-                                    <a href="{{ path(app.request.attributes.get("_route"), { "_locale": prefix, "slug": app.request.attributes.get("slug") }) }}">
-                                        {% if prefix == locale %}
-                                            <span style="color: #ff5312;"><strong>{{ language.title }}</strong></span>
-                                        {% else %}
-                                            {{ language.title }}
-                                        {% endif %}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                </ul>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="logo">
+                        <a href="{{ path("home") }}"><img src="{{ asset("assets/dist/img/log/logo.png") }}" alt="UFG"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="navi">
+                        <div class="mattblackmenu">
+                            {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'selected'}) }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
-
-    <div class="container">
-        {% block section %}{% endblock %}
     </div>
 
-    <hr>
+    <div class="content">
+        <div class="container">
+            {% block section %}{% endblock %}
+        </div>
+    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <footer class="footer">
+        <div class="container">
+            <div class="row gray">
+                <div class="col-xs-2">
+                    <a href="http://giuaani.ge/" target="_blank">
+                        <img src="{{ asset("assets/dist/img/co/giu-white.png") }}" class="img-responsive" onmouseover="this.src='{{ asset("assets/dist/img/co/giu.png") }}'" onmouseout="this.src='{{ asset("assets/dist/img/co/giu-white.png") }}'">
+                    </a>
+                </div>
+                <div class="col-xs-2">
+                    <a href="http://inextravel.ge/" target="_blank">
+                        <img src="{{ asset("assets/dist/img/co/travel-white.png") }}" class="img-responsive" onmouseover="this.src='{{ asset("assets/dist/img/co/travel.png") }}'" onmouseout="this.src='{{ asset("assets/dist/img/co/travel-white.png") }}'">
+                    </a>
+                </div>
+                <div class="col-xs-2">
+                    <a href="http://intelexpress.net/" target="_blank">
+                        <img src="{{ asset("assets/dist/img/co/intel-white.png") }}" class="img-responsive" onmouseover="this.src='{{ asset("assets/dist/img/co/intel.png") }}'" onmouseout="this.src='{{ asset("assets/dist/img/co/intel-white.png") }}'">
+                    </a>
+                </div>
+                <div class="col-xs-2">
+                    <a href="http://intelphone.ge/" target="_blank">
+                        <img src="{{ asset("assets/dist/img/co/intel-ph-white.png") }}" class="img-responsive" onmouseover="this.src='{{ asset("assets/dist/img/co/intel-ph.png") }}'" onmouseout="this.src='{{ asset("assets/dist/img/co/intel-ph-white.png") }}'">
+                    </a>
+                </div>
+                <div class="col-xs-2">
+                    <a href="http://inex.ge/" target="_blank">
+                        <img src="{{ asset("assets/dist/img/co/inex-white.png") }}" class="img-responsive" onmouseover="this.src='{{ asset("assets/dist/img/co/inex.png") }}'" onmouseout="this.src='{{ asset("assets/dist/img/co/inex-white.png") }}'">
+                    </a>
+                </div>
+                <div class="col-xs-2">
+                    <a href="http://diadema.ge/" target="_blank">
+                        <img src="{{ asset("assets/dist/img/co/diadema-white.png") }}" class="img-responsive" onmouseover="this.src='{{ asset("assets/dist/img/co/diadema.png") }}'" onmouseout="this.src='{{ asset("assets/dist/img/co/diadema-white.png") }}'">
+                    </a>
+                </div>
+            </div>
+            <p class="copyright">
                 <small>
                     &copy; 2013 - {{ "now"  | date('Y') }} {{ "ufg.fully" | trans }}.
                     <br>
                     {{ "rights_reserved" | trans }}.
                 </small>
-            </div>
+            </p>
         </div>
-    </div>
+    </footer>
 
     {% block javascripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="{{ asset("assets/dist/js/bootstrap.min.js") }}"></script>
+        <script src="{{ asset("assets/dist/js/ddlevelsmenu.js") }}"></script>
+        <script src="{{ asset("assets/dist/js/jquery.flexslider-min.js") }}"></script>
+        <script src="{{ asset("assets/dist/js/custom.js") }}"></script>
     {% endblock %}
 {% endblock %}
 </body>

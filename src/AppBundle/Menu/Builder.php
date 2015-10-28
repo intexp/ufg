@@ -13,7 +13,7 @@ class Builder extends ContainerAware
 
         $menu = $factory->createItem('root');
 
-        $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));
+//        $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));
 
         $menu->addChild('home', array('route' => 'home'));
 
@@ -22,7 +22,9 @@ class Builder extends ContainerAware
             'routeParameters' => array('slug' => 'about')
         ));
 
-        $menu->addChild('business', array('route' => 'company_index'));
+        $menu->addChild('companies', array('route' => 'company_index'));
+
+        $menu->addChild('news', array('route' => 'news_index'));
 
         $menu->addChild('contact', array('route' => 'contact'));
 

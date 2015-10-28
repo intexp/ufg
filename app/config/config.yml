@@ -114,7 +114,7 @@ liip_imagine:
         slide_image_main:
             quality: 100
             filters:
-                thumbnail: { size: [1200, 300], mode: outbound }
+                thumbnail: { size: [912, 342], mode: outbound }
         slide_image_thumb:
             quality: 100
             filters:
